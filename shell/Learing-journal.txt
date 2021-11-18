@@ -1,0 +1,5 @@
+October 10, 2021
+  - You cannot write shell scripts with extra spaces
+  - Especially when declaring variables must be VAR= ...
+
+
