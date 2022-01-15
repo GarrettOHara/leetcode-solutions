@@ -1,14 +1,18 @@
 class Solution {
-    public int rob(int[] nums){
+    public void rob(int[] nums){
         // TWO POINTERS
-        return pointers(nums);
-        
+        System.out.println(pointers(num));
+
         // TABULATION
-        return tabulation(nums);
-        
+        Sysetm.out.println(tabulation(nums));
+
         // BRUTE FORCE
-        return brute(nums,nums.length-1);
+        System.out.println(brute(nums,nums.length));
+
+        // BOTTOM UP
+        System.out.println(bottom_up(nums));
     }
+
     public int pointers(int[] nums) {
         int a = 0, b = 0;
         for(int num : nums){
@@ -18,7 +22,8 @@ class Solution {
         }
         return a;
     }
-    private int tablulation(int[]nums){
+
+    private int tabulation(int[]nums){
         int n = nums.length;
         int[] dp = new int[n+1];
         
@@ -29,8 +34,28 @@ class Solution {
         
         return dp[n];
     }
+
     private int brute(int[] nums, int n){
         if(n<0)return 0;
         return Math.max(brute(nums,n-2)+nums[n], brute(nums,n-1));
+    }
+
+    private int bottom_up(int[] nums) {
+        // SET VALUES
+        int n = nums.length;
+        int[] tab = new int[n+1];
+        
+        // SET TABULATION UP
+        tab[0]=nums[0];
+        if(n > 1)
+            tab[1]=Math.max(nums[1],nums[0]);
+        
+        // For every value, compare the 
+        // previous house (i-1) with 
+        /// the current one plus i-2 houses ago */
+        for(int i = 2; i < n; i++)
+            tab[i] = Math.max(tab[i-2]+nums[i], tab[i-1]);
+        
+        return tab[n-1];
     }
 }
