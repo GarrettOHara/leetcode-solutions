@@ -1,5 +1,13 @@
 class Solution {
     public boolean canJump(int[] nums) {
+      int reachable = 0;
+        for (int i=0; i<nums.length; ++i) {
+            if (i > reachable) return false;
+            reachable = Math.max(reachable, i + nums[i]);
+        }
+        return true;  
+      }
+      public boolean first_approach(int[] nums){
         int n = nums.length;
         if(n==1) 
             if(nums[0] <= n-1)
@@ -27,5 +35,6 @@ class Solution {
             System.out.print(i + " ");
         
         return true;
+>>>>>>> 83ac8bf4e1bfc3fb6bed962fe8748c3f903220af
     }
 }
