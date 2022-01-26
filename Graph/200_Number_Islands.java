@@ -6,11 +6,13 @@ class Solution {
             {'1','1','1','1','0'},
             {'1','1','0','1','0'},
             {'1','1','0','0','0'},
-            {'0','0','0','0','1'}
+            {'0','0','1','0','1'}
         };
         
-        System.out.println("USING BFS: \n"+numIslandsBFS(arr));
-        System.out.println("USING DFS: \n"+numIslandsDFS(arr));
+        System.out.println("USING BFS ITERATIVE: \n"+numIslandsBFS(arr));
+        System.out.println("USING DFS ITERATIVE: \n"+numIslandsDFS(arr, true));
+        // NOT WORKING
+        // System.out.println("USING DFS RECURSIVE: \n"+numIslandsDFS(arr, false));
     }
     public static int numIslandsBFS(char[][] grid) {
         Boolean[][] visited = new Boolean[grid.length][grid[0].length];
@@ -34,7 +36,7 @@ class Solution {
         
         return count;
     }
-    public static int numIslandsDFS(char[][] grid) {
+    public static int numIslandsDFS(char[][] grid, boolean method) {
         Boolean[][] visited = new Boolean[grid.length][grid[0].length];
         for (Boolean[] row: visited) 
             Arrays.fill(row, false);
@@ -48,7 +50,12 @@ class Solution {
                         visited[i][j] = true;
                     else{
                         visited[i][j]=true;
-                        count += DFS(grid,visited,i,j);
+                        if(method)
+                            count += DFS(grid,visited,i,j);
+                        else{
+                            DFSrecur(grid, visited, i, j);
+                            count++;
+                        }
                     }
                 }
             }
@@ -79,6 +86,26 @@ class Solution {
             }
         }
         return 1;
+    }
+
+    private static void DFSrecur(char[][] grid, Boolean[][] visited, int i, int j){
+        if(i<0 || j<0 || i>=grid.length || j>=grid[0].length || visited[i][j])
+            return;
+        
+        visited[i][j] = true;
+
+        if(grid[i][j]=='0')
+            return;
+
+        int[][] directions = {
+            {0,1}, {0,-1}, {1,0}, {-1,0}
+        };
+
+        for(int[]dir : directions){
+            DFSrecur(grid, visited, i+dir[0], j+dir[1]);
+        }
+
+        return;
     }
     private static int BFS(char[][]grid,Boolean[][]visited,int i, int j){
         /* CREATE QUEUE TO STORE NODES FOR EXPLORATION */
