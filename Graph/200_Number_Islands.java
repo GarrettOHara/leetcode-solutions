@@ -6,13 +6,13 @@ class Solution {
             {'1','1','1','1','0'},
             {'1','1','0','1','0'},
             {'1','1','0','0','0'},
-            {'0','0','0','0','0'}
+            {'0','0','0','0','1'}
         };
-
-        System.out.println(numIslands(arr));
-
+        
+        System.out.println("USING BFS: \n"+numIslandsBFS(arr));
+        System.out.println("USING DFS: \n"+numIslandsDFS(arr));
     }
-    public static int numIslands(char[][] grid) {
+    public static int numIslandsBFS(char[][] grid) {
         Boolean[][] visited = new Boolean[grid.length][grid[0].length];
         for (Boolean[] row: visited) 
             Arrays.fill(row, false);
@@ -34,7 +34,52 @@ class Solution {
         
         return count;
     }
-    
+    public static int numIslandsDFS(char[][] grid) {
+        Boolean[][] visited = new Boolean[grid.length][grid[0].length];
+        for (Boolean[] row: visited) 
+            Arrays.fill(row, false);
+        
+        int count = 0;
+        
+        for(int i = 0; i < grid.length; i++){
+            for(int j = 0; j < grid[0].length; j++){
+                if(!visited[i][j]){
+                    if(grid[i][j]=='0')
+                        visited[i][j] = true;
+                    else{
+                        visited[i][j]=true;
+                        count += DFS(grid,visited,i,j);
+                    }
+                }
+            }
+        }
+        
+        return count;
+    }
+    private static int DFS(char[][]grid,Boolean[][]visited,int i, int j){
+        Stack<int[]>stack = new Stack<>();
+        int[][] directions = {
+            {0,1}, {0,-1}, {1,0}, {-1,0}
+        };
+
+        /* STORE CURRENT NODE */
+        int[]curr = {i,j};
+        stack.push(curr);
+
+        while(!stack.isEmpty()){
+            curr = stack.pop();
+            for(int[] dir : directions){
+                int x = curr[0]+dir[0];
+                int y = curr[1]+dir[1];
+                if(x>=0 && y>=0 && x<grid.length && y<grid[0].length && grid[x][y]=='1' && !visited[x][y]){
+                    stack.push(new int[]{x,y});
+                    visited[x][y]=true;
+                } else 
+                    continue;
+            }
+        }
+        return 1;
+    }
     private static int BFS(char[][]grid,Boolean[][]visited,int i, int j){
         /* CREATE QUEUE TO STORE NODES FOR EXPLORATION */
         Queue<int[]>q = new LinkedList<>();
