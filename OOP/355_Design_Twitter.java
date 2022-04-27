@@ -1,3 +1,12 @@
+import java.util.*;
+
+class Solution {
+  public static void main(String[] args){
+    String[] arguments = {"Twitter","postTweet","getNewsFeed","follow","postTweet",
+      "getNewsFeed","unfollow","getNewsFeed"};
+
+  }
+}
 class Twitter {
     
     Map<Integer,List<Integer>> users_tweets;
