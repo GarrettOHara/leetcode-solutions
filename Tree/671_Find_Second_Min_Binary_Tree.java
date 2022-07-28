@@ -99,3 +99,87 @@ PriorityQueue<Integer>pq = new PriorityQueue();
                 return -1;
 
 **/
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class SolutionB {
+    int min = Integer.MAX_VALUE;
+    int second_min = Integer.MAX_VALUE;
+    boolean found = false;
+    public int findSecondMinimumValue(TreeNode root) {
+        return dfs(root);
+    }
+    private int dfs(TreeNode root){
+        if(root==null)return 0;
+        if(root.val < min)
+            min = root.val;
+        if(root.val > min && root.val <= second_min){
+            second_min = root.val;
+            found = true;
+        }
+        dfs(root.left);
+        dfs(root.right);
+        return found ? second_min : -1;
+    }
+}
+
+/**
+Queue<Integer> pq;
+    public int findSecondMinimumValue(TreeNode root) {
+        pq = new PriorityQueue<>( (a,b) -> Integer.compare(a,b) );
+        dfs(root);
+        pq.poll();
+        return pq.size()==0 ? -1 : pq.peek();
+    }
+
+    private void dfs(TreeNode root) {
+        if(root==null)return;
+
+        if(pq.size() == 0 || pq.peek()!=root.val)
+            pq.offer(root.val);
+
+        dfs(root.left);
+        dfs(root.right);
+
+        return;
+    }
+
+---------
+attempt at optimization failed
+
+
+int a = Integer.MAX_VALUE, b = Integer.MAX_VALUE;
+
+    public int findSecondMinimumValue(TreeNode root) {
+        dfs(root);
+        return (b==a || b==Integer.MAX_VALUE) ? -1 : b;
+    }
+
+    private void dfs(TreeNode root) {
+        if(root==null)return;
+
+        if(a > root.val)
+            a = root.val;
+        else if(b > root.val && root.val != a)
+            b = root.val;
+
+        dfs(root.left);
+        dfs(root.right);
+
+        return;
+    }
+
+**/
