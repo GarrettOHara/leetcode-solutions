@@ -149,3 +149,32 @@ class Solution {
         return 1;
     }
 }
+
+/* MARCH 27 2023 SOLUTION/SUBMISSION */
+class Solution2 {
+    int count = 0;
+    public int numIslands(char[][] grid) {
+        for(int i = 0; i < grid.length; i++) {
+            for(int j = 0; j < grid[i].length; j++) {
+                if(grid[i][j] == '1'){
+                    dfs(grid, i, j);
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    public void dfs(char[][] grid, int x, int y){
+        if(x < 0 || x >= grid.length || y < 0 || y >= grid[x].length)
+            return;
+
+        if(grid[x][y] == '1'){
+            grid[x][y] = 'x';
+            dfs(grid,x+1,y);
+            dfs(grid,x-1,y);
+            dfs(grid,x,y+1);
+            dfs(grid,x,y-1);
+        }
+    }
+}
