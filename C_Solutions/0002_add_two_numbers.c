@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <stdlib.h>
+
 /**
 You are given two non-empty linked lists representing two non-negative integers. 
 The digits are stored in reverse order, and each of their nodes contains a single digit. 
@@ -10,11 +13,11 @@ Examples:
     Input: l1 = [2,4,3], l2 = [5,6,4]
     Output: [7,0,8]
     Explanation: 342 + 465 = 807.
-    
+
     Example 2:
     Input: l1 = [0], l2 = [0]
     Output: [0]
-    
+
     Example 3:
     Input: l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]
     Output: [8,9,9,9,0,0,0,1]
@@ -24,13 +27,10 @@ Big O Notation:
     Space: O(max(m, n))
 */
 
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     struct ListNode *next;
- * };
- */
+struct ListNode {
+    int val;
+    struct ListNode *next;
+};
 
 struct ListNode* newNode(int sum) {
     struct ListNode* node = (struct ListNode*) malloc(sizeof(struct ListNode));
@@ -68,4 +68,54 @@ struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2) {
         }
     }
     return head;
+}
+
+// Function to print the linked list
+void printList(struct ListNode* head) {
+    struct ListNode* temp = head;
+    while (temp != NULL) {
+        printf("%d ", temp->val);
+        temp = temp->next;
+    }
+    printf("\n");
+}
+
+int main() {
+    // Test Case 1
+    struct ListNode* l1 = newNode(2);
+    l1->next = newNode(4);
+    l1->next->next = newNode(3);
+
+    struct ListNode* l2 = newNode(5);
+    l2->next = newNode(6);
+    l2->next->next = newNode(4);
+
+    printf("Test Case 1: ");
+    printList(addTwoNumbers(l1, l2));
+
+    // Test Case 2
+    struct ListNode* l3 = newNode(0);
+    struct ListNode* l4 = newNode(0);
+
+    printf("Test Case 2: ");
+    printList(addTwoNumbers(l3, l4));
+
+    // Test Case 3
+    struct ListNode* l5 = newNode(9);
+    l5->next = newNode(9);
+    l5->next->next = newNode(9);
+    l5->next->next->next = newNode(9);
+    l5->next->next->next->next = newNode(9);
+    l5->next->next->next->next->next = newNode(9);
+    l5->next->next->next->next->next->next = newNode(9);
+
+    struct ListNode* l6 = newNode(9);
+    l6->next = newNode(9);
+    l6->next->next = newNode(9);
+    l6->next->next->next = newNode(9);
+
+    printf("Test Case 3: ");
+    printList(addTwoNumbers(l5, l6));
+
+    return 0;
 }
