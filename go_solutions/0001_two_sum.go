@@ -29,3 +29,25 @@ func twoSum(nums []int, target int) []int {
         mem[num] = idx
     }
     return nil
+}
+
+
+func main() {
+    // Test cases
+    tests := []struct {
+        nums   []int
+        target int
+        result []int
+    }{
+        {[]int{2, 7, 11, 15}, 9, []int{0, 1}},
+        {[]int{3, 2, 4}, 6, []int{1, 2}},
+        {[]int{3, 3}, 6, []int{0, 1}},
+        {[]int{1, 5, 3, 4, 2}, 7, []int{1, 4}}, // Extra case for more coverage
+        {[]int{-1, -2, -3, -4, -5}, -8, []int{2, 4}}, // Extra case with negative numbers
+    }
+
+    for _, test := range tests {
+        result := twoSum(test.nums, test.target)
+        fmt.Printf("twoSum(%v, %d) = %v; Expected = %v\n", test.nums, test.target, result, test.result)
+    }
+}

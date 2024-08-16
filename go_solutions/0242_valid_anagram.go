@@ -3,29 +3,48 @@ package main
 import (
     "fmt"
 )
+/**
+Given two strings s and t, return true if t is an anagram of s, and false
+otherwise. An Anagram is a word or phrase formed by rearranging the letters
+of a different word or phrase, typically using all the original letters
+exactly once.
 
-func isAnagram(s string, t string) bool {
-    if len(s) != len(t) {
-        return false
+Example 1:
+Input: s = "anagram", t = "nagaram"
+Output: true
+
+Example 2:
+Input: s = "rat", t = "car"
+Output: false
+**/
+
+
+func isAnagram1(s string, t string) bool {
+    m := make(map[rune]int)
+    for _, char := range s {
+        if val, found := m[char]; found {
+            m[char] = val + 1
+        } else {
+            m[char] = 1
+        }
     }
 
-    var freq [26]int
-
-    for idx := 0; idx < len(s); idx++ {
-        freq[s[idx] - 'a']++
-        freq[t[idx] - 'a']--
-    }
-
-    for idx := 0; idx < len(freq); idx++ {
-        if freq[idx] != 0 {
+    for _, char := range t {
+        if val, found := m[char]; found {
+            if val <= 1 {
+                delete(m, char)
+            } else {
+                m[char] = val - 1
+            }
+        } else {
             return false
         }
     }
 
-    return true
+    return len(m) == 0
 }
 
-func isAnagram_garrett(s string, t string) bool {
+func isAnagram2(s string, t string) bool {
     if(len(s) != len(t)) {
         return false
     }
@@ -57,6 +76,25 @@ func isAnagram_garrett(s string, t string) bool {
     return len(letters) == 0;
 }
 
+func isAnagramOptimal(s string, t string) bool {
+    if len(s) != len(t) { return false }
+
+    var freq [26]int
+
+    for i := 0; i < len(s); i++ {
+        freq[s[i]-'a']++
+        freq[t[i]-'a']--
+    }
+
+    for i := 0; i < len(freq); i++ {
+        if(freq[i] != 0) {
+            return false
+        }
+    }
+
+    return true
+}
+
 func main() {
     // Test cases
     tests := []struct {
@@ -76,7 +114,13 @@ func main() {
     }
 
     for _, test := range tests {
-        result := isAnagram(test.s, test.t)
-        fmt.Printf("isAnagram(%q, %q) = %v\n", test.s, test.t, result)
+        result := isAnagram1(test.s, test.t)
+        fmt.Printf("isAnagram1(%q, %q) = %v\n", test.s, test.t, result)
+
+        result = isAnagram2(test.s, test.t)
+        fmt.Printf("isAnagram2(%q, %q) = %v\n", test.s, test.t, result)
+
+        result = isAnagramOptimal(test.s, test.t)
+        fmt.Printf("isAnagramOptimal(%q, %q) = %v\n", test.s, test.t, result)
     }
 }
