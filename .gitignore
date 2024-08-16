@@ -1,3 +1,9 @@
 # Ignore C/C++ executables
 **/*.bin
 **/*.out
+
+# VS Code
+*.vscode
+
+# Mac
+**/.DS_store
