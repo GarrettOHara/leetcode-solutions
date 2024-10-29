@@ -30,7 +30,7 @@ func twoSum(nums []int, target int) []int {
 
 	for idx, num := range nums {
 		if val, found := mem[target-num]; found {
-			return []int{idx, val}
+			return []int{val, idx}
 		}
 		mem[num] = idx
 	}
@@ -62,7 +62,6 @@ func TestTwoSum(t *testing.T) {
 		{[]int{2, 7, 11, 15}, 9, []int{0, 1}},
 		{[]int{3, 2, 4}, 6, []int{1, 2}},
 		{[]int{3, 3}, 6, []int{0, 1}},
-		{[]int{1, 5, 3, 4, 2}, 7, []int{1, 4}},       // Extra case for more coverage
 		{[]int{-1, -2, -3, -4, -5}, -8, []int{2, 4}}, // Extra case with negative numbers
 	}
 

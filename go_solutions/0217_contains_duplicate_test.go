@@ -31,6 +31,21 @@ func containsDuplicate(nums []int) bool {
 	return false
 }
 
+func containsDuplicate_10_24(nums []int) bool {
+    m := make(map[int]int, len(nums))
+
+    for _, num := range nums {
+        _, ok := m[num]
+        if ok {
+            return true
+        }
+
+        m[num] = 0
+    }
+
+    return false
+}
+
 func TestContainsDuplicate(t *testing.T) {
 
 	// Test cases
@@ -49,6 +64,16 @@ func TestContainsDuplicate(t *testing.T) {
 
 	for _, test := range tests {
 		result := containsDuplicate(test.nums)
-		t.Errorf("containsDuplicate(%v) = %v; Expected = %v\n", test.nums, result, test.result)
+        if result != test.result{
+            t.Errorf("containsDuplicate(%v) = %v; Expected = %v\n", test.nums, result, test.result)
+            continue
+        }
+	}
+	for _, test := range tests {
+		result := containsDuplicate_10_24(test.nums)
+        if result != test.result{
+            t.Errorf("containsDuplicate_10_24(%v) = %v; Expected = %v\n", test.nums, result, test.result)
+            continue
+        }
 	}
 }
