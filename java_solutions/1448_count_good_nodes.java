@@ -96,3 +96,30 @@ class Solution {
 }
 
 */
+
+/*
+
+Another solution 01/02/25
+
+class Solution {
+    private int good = 0;
+    public int goodNodes(TreeNode root) {
+        if (root == null) return 0;
+
+        helper(root, root.val);
+
+        return good;
+    }
+
+    private void helper(TreeNode root, int largestSeen) {
+        if (root == null) return;
+
+
+        if (root.val >= largestSeen)
+            good += 1;
+
+        helper(root.left, Math.max(largestSeen, root.val));
+        helper(root.right, Math.max(largestSeen, root.val));
+    }
+}
+*/
