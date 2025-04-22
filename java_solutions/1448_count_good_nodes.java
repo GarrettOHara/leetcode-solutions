@@ -123,3 +123,48 @@ class Solution {
     }
 }
 */
+
+/*
+More solutions 04/22/25
+
+class Solution {
+    private int good = 0;
+
+    public int goodNodes(TreeNode root) {
+       // helper(root, root.val);
+       // return good;
+
+       return helper2(root, root.val);
+    }
+
+    private int helper2(TreeNode root, int largest) {
+        if (root == null)
+            return 0;
+
+        int sum = 0;
+        if (root.val >= largest) {
+            largest = root.val;
+            sum += 1;
+        }
+
+        sum += helper2(root.left, largest);
+        sum += helper2(root.right, largest);
+
+        return sum;
+    }
+
+    private void helper(TreeNode root, int largest) {
+        if (root == null) {
+            return;
+        }
+
+        if (root.val >= largest) {
+            largest = root.val;
+            good++;
+        }
+
+        helper(root.left, largest);
+        helper(root.right, largest);
+    }
+}
+*/
